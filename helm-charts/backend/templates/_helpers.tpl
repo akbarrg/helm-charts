@@ -51,6 +51,19 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+custom labels
+*/}}
+{{- define "backend.appLabels" -}}
+app: {{ default .Release.Name  .Values.labels.app }}
+{{- end }}
+{{- define "backend.nameLabels" -}}
+name: {{ default .Release.Name  .Values.labels.name }}
+{{- end }}
+{{- define "backend.roleLabels" -}}
+role: {{ default "http"  .Values.labels.role }}
+{{- end }}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "backend.serviceAccountName" -}}
