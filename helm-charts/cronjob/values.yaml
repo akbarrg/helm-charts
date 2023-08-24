@@ -1,0 +1,25 @@
+name: example
+image:
+  repository: example
+  tag: latest
+schedule: "* * * * *"
+spec:
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 3
+  concurrencyPolicy: Allow
+  suspend: false
+restartPolicy: OnFailure
+command: []
+env:
+- name: example
+envFrom:
+- configMapRef:
+  name: example
+args:
+resources: {}
+volumeMounts:
+volumes:
+configMap:
+  enabled: false
+secret:
+  enabled: false

@@ -1,0 +1,65 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.name }}
+  namespace: cron
+spec:
+  {{- with .Values.spec.concurrencyPolicy }}
+  concurrencyPolicy: {{ toYaml . }}
+  {{- end }}
+  {{- with .Values.spec.successfulJobsHistoryLimit }}
+  successfulJobsHistoryLimit: {{ toYaml . }}
+  {{- end }}
+  {{- with .Values.spec.failedJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ toYaml . }}
+  {{- end }}
+  {{- with .Values.spec.suspend }}
+  suspend: {{ toYaml . }}
+  {{- end }}
+  schedule: {{ .Values.schedule | quote }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          annotations:
+            sidecar.istio.io/inject: "false"
+            proxy.istio.io/config: '{ "holdApplicationUntilProxyStarts": true }'
+            {{- with .Values.vaultAnnotations }}
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
+        spec:
+          containers:
+          - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+            {{- with .Values.image.imagePullPolicy }}
+            imagePullPolicy: {{ toYaml . }}
+            {{- end }}
+            name: {{ .Release.Name }}-{{ .Values.name }}
+            {{- with .Values.args }}
+            args:
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- with .Values.command }}
+            command:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- with .Values.env }}
+            env:
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- with .Values.envFrom }}
+            envFrom:
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- with .Values.resources }}
+            resources:
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- with .Values.volumeMounts }}
+            volumeMounts:
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- with .Values.volumes }}
+          volumes:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          restartPolicy: {{ .Values.restartPolicy }}

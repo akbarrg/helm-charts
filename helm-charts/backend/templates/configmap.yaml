@@ -1,0 +1,16 @@
+{{- if .Values.configMap.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace | default "default" }}
+  labels:
+    {{- include "backend.labels" . | nindent 4 }}
+    {{- include "backend.appLabels" . | nindent 4 }}
+    {{- include "backend.nameLabels" . | nindent 4 }}
+    {{- include "backend.roleLabels" . | nindent 4 }}
+{{- with .Values.configMap.data }}
+data:
+  {{- toYaml . | nindent 2 }}
+{{- end }}
+{{- end }}

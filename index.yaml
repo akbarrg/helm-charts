@@ -3,23 +3,34 @@ entries:
   backend:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-08-24T13:30:40.582082822+07:00"
+    created: "2023-08-24T13:40:28.603646886+07:00"
     description: A Helm chart for Kubernetes
-    digest: 82e238fdf31a02543b78c578b50075789770f7137c027943b968a20d28778593
+    digest: 572cbd94870c986f0c38f68e51154f9b92e661a5086b2e45e8b2dc152d1fd88a
     name: backend
     type: application
     urls:
     - https://akbarrg.github.io/helm-charts/backend-0.1.0.tgz
     version: 0.1.0
+  cronjob:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-08-24T13:40:28.603972384+07:00"
+    description: A Helm chart for Kubernetes
+    digest: 48ccd50c39a4cf1af6125cde889b407f7be7e3164f6fe9779725782a60fe843a
+    name: cronjob
+    type: application
+    urls:
+    - https://akbarrg.github.io/helm-charts/cronjob-1.0.0.tgz
+    version: 1.0.0
   frontend:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-08-24T13:30:40.582579956+07:00"
+    created: "2023-08-24T13:40:28.604396513+07:00"
     description: A Helm chart for Kubernetes
-    digest: 0b5795291153f554adf1e83ef700e01e2ea6c5d047ade8d047d3a2d172a0655d
+    digest: b129d977b570ef5b061ef364b3216ec4d99056abb90f7dca9403d16c073a7a6c
     name: frontend
     type: application
     urls:
     - https://akbarrg.github.io/helm-charts/frontend-0.1.0.tgz
     version: 0.1.0
-generated: "2023-08-24T13:30:40.581363343+07:00"
+generated: "2023-08-24T13:40:28.602877353+07:00"
