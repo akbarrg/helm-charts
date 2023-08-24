@@ -47,21 +47,29 @@ spec:
             - name: {{ $key }}
               valueFrom:
                 configMapKeyRef:
-                  name: {{ .Release.Name $ }}
+                  name: {{ include "frontend.fullname" $ }}
                   key: {{ $key }}
             {{- end }}
+          {{- with .Values.ports }}
           ports:
-            - name: http
-              containerPort: 3000
-              protocol: TCP
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           livenessProbe:
             httpGet:
               path: /
               port: http
+              failureThreshold: 1
+              periodSeconds: 20
+              initialDelaySeconds: 20
+              timeoutSeconds: 10
           readinessProbe:
             httpGet:
               path: /
               port: http
+              failureThreshold: 1
+              periodSeconds: 20
+              initialDelaySeconds: 20
+              timeoutSeconds: 10
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
