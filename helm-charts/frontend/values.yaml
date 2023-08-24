@@ -91,3 +91,7 @@ secret:
 
 configMap:
   enabled: false
+
+volume: {}
+
+volumeMounts: {}
